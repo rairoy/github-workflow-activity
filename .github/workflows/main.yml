@@ -21,18 +21,7 @@ jobs:
       # Appends a <p> tag with their name and the current timestamp
       - name: Update index.html
         run: |
-          if [ "${{ github.actor }}" = "TeamLeader" ]; then
-            sed -i '/<\/div>/i \    <p>Updated by Team Leader on '"$(date)"'</p>' index.html
-
-          elif [ "${{ github.actor }}" = "Member1" ]; then
-            sed -i '/<\/div>/i \    <p>Updated by Member 1 on '"$(date)"'</p>' index.html
-
-          elif [ "${{ github.actor }}" = "Member2" ]; then
-            sed -i '/<\/div>/i \    <p>Updated by Member 2 on '"$(date)"'</p>' index.html
-
-          else
-            sed -i '/<\/div>/i \    <p>Updated by ${{ github.actor }} on '"$(date)"'</p>' index.html
-          fi
+          sed -i '/<\/div>/i \    <p>Updated by ${{ github.actor }} on '"$(date)"'</p>' index.html
 
       # Step 3: Update README.md
       # Appends a log entry with the actor, formatted timestamp, and short commit hash
