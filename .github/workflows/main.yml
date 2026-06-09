@@ -1,0 +1,54 @@
+name: Collaborative Workflow
+
+# Trigger: runs on every push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_html_and_readme:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Step 1: Check out the repository so the workflow can access its files
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Update index.html
+      # Detects which GitHub user triggered the push (github.actor)
+      # Appends a <p> tag with their name and the current timestamp
+      - name: Update index.html
+        run: |
+          if [ "${{ github.actor }}" = "TeamLeader" ]; then
+            sed -i '/<\/div>/i \    <p>Updated by Team Leader on '"$(date)"'</p>' index.html
+
+          elif [ "${{ github.actor }}" = "Member1" ]; then
+            sed -i '/<\/div>/i \    <p>Updated by Member 1 on '"$(date)"'</p>' index.html
+
+          elif [ "${{ github.actor }}" = "Member2" ]; then
+            sed -i '/<\/div>/i \    <p>Updated by Member 2 on '"$(date)"'</p>' index.html
+
+          else
+            sed -i '/<\/div>/i \    <p>Updated by ${{ github.actor }} on '"$(date)"'</p>' index.html
+          fi
+
+      # Step 3: Update README.md
+      # Appends a log entry with the actor, formatted timestamp, and short commit hash
+      - name: Update README
+        run: |
+          echo "### Updated by ${{ github.actor }} on $(date '+%Y-%m-%d %H:%M:%S') [Commit: $(git rev-parse --short HEAD)]" >> README.md
+
+      # Step 4: Commit and push changes back to the repository
+      # Uses the built-in GITHUB_TOKEN for authentication
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Workflow: Updated HTML and README for ${{ github.actor }}" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
