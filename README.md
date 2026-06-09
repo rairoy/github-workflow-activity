@@ -33,7 +33,7 @@ It demonstrates:
 
 ## How the Workflow Works
 
-When any team member pushes to the `main` branch:
+When a push is made to the `main` branch:
 
 1. GitHub Actions checks out the repository
 2. The workflow detects which GitHub user triggered the push (`github.actor`)
@@ -47,9 +47,9 @@ When any team member pushes to the `main` branch:
 
 <!-- Workflow log entries will be appended below this line -->
 
-### Updated by rairoy on 2026-06-09 21:03:29 [Commit: 4a27871]
-### Updated by rairoy on 2026-06-09 21:08:56 [Commit: f2ef628]
-### Updated by rairoy on 2026-06-09 21:21:54 [Commit: 49c66b7]
-### Updated by rairoy on 2026-06-09 21:23:32 [Commit: a8901ff]
-### Updated by rairoy on 2026-06-09 21:25:51 [Commit: abdcb93]
-### Updated by rairoy on 2026-06-09 21:27:54 [Commit: 7f2e4e7]
+### Updated by rairoy on 2026-05-29 21:03:29 [Commit: 4a27871]
+### Updated by rairoy on 2026-05-29 21:08:56 [Commit: f2ef628]
+### Updated by rairoy on 2026-05-29 21:21:54 [Commit: 49c66b7]
+### Updated by rairoy on 2026-05-29 21:23:32 [Commit: a8901ff]
+### Updated by rairoy on 2026-05-29 21:25:51 [Commit: abdcb93]
+### Updated by rairoy on 2026-05-29 21:27:54 [Commit: 7f2e4e7]
